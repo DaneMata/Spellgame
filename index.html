@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .all {
+        display: grid;
+        place-items: center;
+        margin-top: 100px;
+    }
+
+    img {
+        width: 300px;
+    }
+
+    #inp {
+        margin-top: 30px;
+        width: 485px;
+        padding: 7px;
+    }
+
+    #btn {
+        width: 500px;
+        padding: 5px;
+        cursor: pointer;
+        margin: 20px 0 20px 0;
+        background-color: aqua;
+    }
+
+    .btn2 {
+        width: 150px;
+        padding: 5px;
+        cursor: pointer;
+        margin: 0 100px 0 100px;
+        background-color: rgb(234, 130, 65);
+    }
+</style>
+
+<body>
+    <div class="all">
+        <img src="bee.png" alt="">
+        <input type="text" id="inp">
+        <button id="btn">Generate a new word</button>
+
+        <div class="cont">
+            <button id="speak" class="btn2">Speak</button>
+            <button id="sub" class="btn2">Submit</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    let word;
+
+    const words=["aberration", "abstemious", "acumen", "alacrity", "amalgamate", "amenable", "achronism", "anomaly", "antipathy", "approbation", "arduous"]
+
+    document.getElementById('btn').addEventListener('click', function(){
+        num=Math.floor(Math.random()*(248))
+        word=words[num]
+
+        let voice=new SpeechSynthesisUtterance()
+        voice.text=word
+        speechSynthesis.speak(voice)
+
+    })
+
+    document.getElementById('sub').addEventListener('click', function(){
+        if(document.getElementById('Inp').value==word){
+            alert("CORRECT !!")
+        }
+
+        else{
+            alert(`INCORRECT \n It was ${word}`)
+        }
+
+        document.emptygetElementById('inp').value=''
+
+    })
+
+    document.getElementById('speak').addEventListener('click', function(){
+        let voice=new SpeechSynthesisUtterance()
+        voice.text=word
+        speechSynthesis.speak(voice)
+
+    })
+
+</script>
+</html>
