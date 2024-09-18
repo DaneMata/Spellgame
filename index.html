@@ -1,18 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- text gets injected here --><div class="text">
+   
+   <!-- text gets injected here -->
+   
+   <svg class="corner" viewBox="0 0 65 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M35 3.5L65 6.5V62L0 0L35 3.5Z" fill="white"/>
+ </svg>
+</div>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Spell&Learn</title>
 </head>
+
+<head> 
+   <meta charset="UTF-8"> 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   <title>Box with Text</title> 
+   <link rel="stylesheet" href="styles.css"> 
+</head> 
+<body> 
+   <div class="box"> 
+       <p>Instruction:</p> 
+       <p>Generate word to get new words to spell. Speak button to repeat the word. Submit button to enter the words.</p>
+   </div> 
+</body> 
 
 <style>
     * {
         margin: 0;
         padding: 0;
     }
+
+    body { 
+    font-family: Arial, sans-serif; 
+    display:block;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */ 
+    margin: 0; 
+} 
+ 
+.box { 
+    border: 2px solid #333; /* Border color */ 
+    padding: 20px; /* Space inside the box */ 
+    width: 300px; /* Width of the box */ 
+    height: 150px; /* Height of the box */ 
+    background-color: #f9f9f9; /* Background color */ 
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */ 
+    text-align:center; /* Center the text */ 
+    
+} 
+
+.box {
+   display:inherit;
+   padding: 100px;
+}
 
     body {
         width: 100%;
@@ -50,6 +95,46 @@
         margin: 0 100px 0 100px;
         background-color: rgb(234, 130, 65);
     }
+
+    .text span {
+   opacity: 0;
+}
+.text span.revealed {
+   opacity: 1;
+}
+.text span.green {
+   color: #27ae60;
+}
+.text span.red {
+   color: #ff0000;
+}
+
+
+/* Demo styles */
+body {
+   background: #3498db;
+   padding: 1em;
+   font-family: 'Sora', monospace;
+}
+.text {
+   font-size: 2vw;
+   word-spacing: 0.2em;
+   margin: 0 auto;
+   background: #fff;
+   padding: 1em;
+   border-bottom: 0vw solid #0e6dad;
+   position:absolute;
+   line-height: 0.2em;
+}
+
+.corner {
+   position:absolute;
+   width: 6vw;
+   right:20vw;
+   bottom:0;
+   transform: translateY(80%); 
+}
+
 </style>
 
 <body>
@@ -68,10 +153,10 @@
 <script>
     let word;
 
-    const words=["aberration", "abstemious", "acumen", "alacrity", "amalgamate", "amenable", "achronism", "anomaly", "antipathy", "approbation", "arduous"]
-
+    const words=["aberration", "abstemious", "acumen", "alacrity", "amalgamate", "amenable", "achronism", "anomaly", "antipathy", "approbation", "arduous","Benevolent", "Bizarre", "Blasphemy", "Bravado", "Bucolic", "Bureaucracy", "Bone", "Belligerent", "Boisterous", "Beguile", "Benign", "Bravura", "Convoluted", "Clandestine", "Copious", "Crux", "Cryptic", "Cacophony", "Circumspect", "Callous", "Capitulate", "Censure", "Catalyst", "Coherent", "Diligent", "Disparate", "Decipher", "Dormant", "Dubious", "Diffident", "Dissonance", "Draconian", "Detrimental", "Demure", "Denounce", "Dynamic", "Eccentric", "Exacerbate", "Ephemeral", "Elucidate", "Exquisite", "Eloquent", "Euphoria", "Enervate", "Equivocate", "Enigmatic", "Epiphany", "Entropy", "Fastidious", "Facetious", "Flabbergast", "Feasible", "Furtive", "Fecund", "Fortuitous", "Frivolous", "Fractious", "Fallacious", "Fanatic", "Finesse", "Gregarious", "Grandiose", "Gargantuan", "Grievous", "Gluttony", "Glean", "Germane", "Gullible", "Grotto", "Guile", "Gratuitous", "Galvanise", "Hypothesis", "Haphazard", "Harangue", "Hedonistic", "Hiatus", "Histrionic", "Heuristic", "Hubris", "Humility", "Hyperbole", "Holograph", "Hallowed", "Ineffable", "Incorrigible", "Intransigent", "Invincible", "Irascible", "Impeccable", "Impetuous", "Inimical", "Intrepid", "Illustrious", "Insidious", "Indelible", "Juxtapose", "Jet", "Jeopardy", "Justice", "Jaded", "Judicious", "Justify", "Jar", "Jovial", "Juice", "Jail", "Jaw", "Keen", "Knack", "Kinetic", "Kismet", "Kudos", "Knowledgeable", "Kleptomania", "Kindle", "Kingdom", "Kowtow", "Keystone", "Kinetic", "Loquacious", "Luminous", "Lethargic", "Lament", "Labyrinth", "Lethargy", "Licentious", "Luminary", "Lustrous", "Lucid", "Lethargy", "Lackadaisical", "Melancholy", "Magnanimous", "Mysterious", "Munificent", "Meticulous", "Mundane", "Mirthful", "Malevolent", "Morose", "Mitigate", "Metamorphosis", "Magnify", "Nostalgia", "Nebulous", "Nonchalant", "Nefarious", "Nascent", "Nimble", "Nebula", "Nuance", "Neophyte", "Nomenclature", "Nexus", "Nullify", "Obfuscate", "Obsequious", "Omnipotent", "Ostentatious", "Opulent", "Obsolete", "Obdurate", "Orchestrate", "Overwhelm", "Oxymoron", "Outlandish", "Oscillate", "Perspicacious", "Pragmatic", "Prodigal", "Pensive", "Paradox", "Plethora", "Pertinent", "Pinnacle", "Placid", "Palpable", "Paragon", "Pervasive", "Quixotic", "Quarter", "Quite", "Quota", "Quixotic", "Quiescent", "Quiz", "Query", "Quarantine", "Quantify", "Quintessential", "Quibble", "Resilient", "Recalcitrant", "Reciprocate", "Reticent", "Rhetoric", "Reverent", "Raucous", "Redundant", "Rejuvenate", "Reprove", "Resplendent", "Rigorous", "Sycophant", "Serendipity", "Sagacious", "Salient", "Substantiate", "Surreptitious", "Simultaneous", "Sycophant", "Speculative", "Stoic", "Soliloquy", "Strenuous", "Transient", "Tenacious", "Tragic", "Tranquil", "Tease", "Thin", "Taser", "Transcendent", "Train", "Tentacle", "Tenacity", "Tangible", "Ubiquitous", "Uncanny", "Uplift", "Unfathomable", "Upper", "Unpretentious", "Unequivocal", "Unprecedented", "Under", "Urgent", "Urbane", "Utterance", "Versatile", "Virtuoso", "Voracious", "Veracity", "Viable", "Vex", "Vivid", "Volatile", "Victory", "Vicarious", "Veritable", "Venerable", "Whimsical", "Waste", "Waist", "Wrought", "Weight", "Winner", "Wonder", "Warrant", "Wander", "Whether", "Wield", "Welter", "Xenophile", "Xerotic", "Xylophone", "Xenophobic", "Xylograph", "Xerox", "Xyloid", "Xerophytic", "Xylography", "Xylocarp", "Xenogeny", "Xenon", "Yearn", "Yield", "Yoke", "Yawn", "Yarn", "Young", "Yonder", "Yawning", "Yuppie", "Yowl", "Yodel", "Yesteryear", "Zephyr", "Zenith", "Zany", "Zeal", "Zest", "Zilch", "Ziggurat", "Zealous", "Zygote", "Zestful", "Zephyr", "Zipper"
+]
     document.getElementById('btn').addEventListener('click', function(){
-        num=Math.floor(Math.random()*(248))
+        num=Math.floor(Math.random()*(312))
         word=words[num]
 
         let voice=new SpeechSynthesisUtterance()
@@ -81,15 +166,15 @@
     })
 
     document.getElementById('sub').addEventListener('click', function(){
-        if(document.getElementById('Inp').value==word){
-            alert("CORRECT !!")
+        if(document.getElementById('inp').value===word) {
+            alert("CORRECT!!")
         }
 
         else{
             alert(`INCORRECT \n It was ${word}`)
         }
 
-        document.emptygetElementById('inp').value=''
+        document.getElementById('inp').value===''
 
     })
 
@@ -99,6 +184,82 @@
         speechSynthesis.speak(voice)
 
     })
+
+    var container = document.querySelector(".text");
+
+var speeds = {
+   pause: 500, //Higher number = longer delay
+   slow: 120,
+   normal: 90,
+   fast: 40,
+   superFast: 10
+};
+
+var textLines = [
+   { speed: speeds.slow, string: "Oh, hello!" },
+   { speed: speeds.pause, string: "", pause: true },
+   { speed: speeds.normal, string: "How are you" },
+   { speed: speeds.fast, string: "my", classes: ["friend"] },
+   { speed: speeds.normal, string: "friend?" }
+];
+
+var speeds = {
+   pause: 500, //Higher number = longer delay
+   slow: 120,
+   normal: 90,
+   fast: 40,
+   superFast: 10
+};
+   var textLines = [
+   { speed: speeds.slow, string: "To start the game" },
+   { speed: speeds.pause, string: "", pause: true },
+   { speed: speeds.normal, string: "just click" },
+   { speed: speeds.fast, string: "the", classes: ["generate"] },
+   { speed: speeds.normal, string: "Generate Word" }
+];
+
+
+var characters = [];
+textLines.forEach((line, index) => {
+   if (index < textLines.length - 1) {
+      line.string += " "; //Add a space between lines
+   }
+
+   line.string.split("").forEach((character) => {
+      var span = document.createElement("span");
+      span.textContent = character;
+      container.appendChild(span);
+      characters.push({
+         span: span,
+         isSpace: character === " " && !line.pause,
+         delayAfter: line.speed,
+         classes: line.classes || []
+
+
+      });
+   });
+});
+
+function revealOneCharacter(list) {
+   var next = list.splice(0, 1)[0];
+   next.span.classList.add("revealed");
+   next.classes.forEach((c) => {
+      next.span.classList.add(c);
+   });
+   var delay = next.isSpace && !next.pause ? 0 : next.delayAfter;
+
+   if (list.length > 0) {
+      setTimeout(function () {
+         revealOneCharacter(list);
+      }, delay);
+   }
+}
+
+//Kick it off
+setTimeout(() => {
+   revealOneCharacter(characters);   
+}, 600)
+
 
 </script>
 </html>
